@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, JetBrains_Mono, Raleway, Google_Sans_Flex } from "next/font/google";
+import { Geist, Geist_Mono, Figtree } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const jetbrainsMono = JetBrains_Mono({subsets:['latin'],variable:'--font-mono'});
-const raleway = Raleway({subsets:['latin'],variable:'--font-raleway'});
-const googleSansFlex = Google_Sans_Flex({subsets:['latin'],variable:'--font-google-sans-flex'});
+const figtree = Figtree({subsets:['latin'],variable:'--font-sans'});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,11 +15,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const fonts = [geistSans, geistMono, jetbrainsMono, raleway, googleSansFlex];
-
 export const metadata: Metadata = {
-  title: "Faith Tracker - Jesus Youth Pala",
-  description: "A web application to track and manage your faith lives.",
+  title: "PlannerHQ",
+  description: "A realtime collaborative planner with user collaboration and task management features.",
 };
 
 export default function RootLayout({
@@ -32,7 +28,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", ...fonts.map((f) => f.variable))}
+      className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", figtree.variable)}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
