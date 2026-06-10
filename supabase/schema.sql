@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS members (
 );
 
 -- attendance table
-CREATE TABLE IF NOT EXISTS attendance (
+CREATE TABLE IF NOT EXISTS records (
     id SERIAL PRIMARY KEY,
     event_id INT NOT NULL,
     member_id INT NOT NULL,
