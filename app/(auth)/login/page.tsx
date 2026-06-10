@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { signIn } from "@/lib/auth";
+
 import { toast, Toaster } from "sonner";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -23,17 +23,24 @@ const LoginPage = () => {
     setError("");
 
     try {
-      const { error } = await signIn(username, password);
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: username, password }),
+      });
 
-      if (error) {
-        setError(error.message);
-      } else {
-        toast.success("Login successful");
-        router.push("/admin/dashboard");
-        router.refresh();
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Login failed");
       }
-    } catch {
-      setError("An unexpected error occurred. Please try again.");
+
+      toast.success("Logged in successfully!");
+      router.push("/admin/dashboard");
+    } catch (err: any) {
+      setError(err.message);
     } finally {
       setLoading(false);
     }
